@@ -1,0 +1,25 @@
+{
+  "name": "login-system-backend",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "db:rm": "sudo docker compose rm db -s -f -v",
+    "db:up": "sudo docker compose up db -d",
+    "start": "node ./index.js",
+    "start:dev": "nodemon ./index.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "argon2": "^0.30.1",
+    "cors": "^2.8.5",
+    "dotenv": "^16.0.3",
+    "express": "^4.18.2",
+    "mysql2": "^2.3.3",
+    "sequelize": "^6.25.2"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.20"
+  }
+}
