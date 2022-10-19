@@ -6,6 +6,7 @@ import {
 } from "../../store/actions/auth.action";
 import { Alert, Snackbar } from "@mui/material";
 import { Outlet } from "react-router-dom";
+import { NotificationBox } from "../ui";
 
 class Auth extends Component {
   constructor(props) {
@@ -26,26 +27,18 @@ class Auth extends Component {
     return (
       <div>
         <Outlet />
-        <Snackbar
+        <NotificationBox
           open={!!successMessage}
           onClose={this.handleSuccessMessageClose}
-          autoHideDuration={4000}
-          anchorOrigin={{ vertical: "bottom", horizontal: "right" }}
-        >
-          <Alert severity="success" sx={{ width: "100%" }}>
-            {successMessage}
-          </Alert>
-        </Snackbar>
-        <Snackbar
+          severity="success"
+          message={successMessage}
+        />
+        <NotificationBox
           open={!!authError}
           onClose={this.handleErrorMessageClose}
-          autoHideDuration={4000}
-          anchorOrigin={{ vertical: "bottom", horizontal: "right" }}
-        >
-          <Alert severity="error" sx={{ width: "100%" }}>
-            {authError}
-          </Alert>
-        </Snackbar>
+          severity="error"
+          message={authError}
+        />
       </div>
     );
   }
