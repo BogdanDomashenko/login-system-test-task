@@ -4,15 +4,8 @@ import { withFormik } from "formik";
 import { register } from "../../../store/actions/auth.action";
 import { validateEmail, validatePassword } from "../../../common/utils";
 import { Link } from "react-router-dom";
-import {
-  Box,
-  Button,
-  CircularProgress,
-  Container,
-  TextField,
-  Typography,
-} from "@mui/material";
-import { Loader, ErrorBox } from "../../ui";
+import { Box, Button, Container, TextField, Typography } from "@mui/material";
+import { Loader } from "../../ui";
 import { withRouter } from "../../../common/hocs";
 
 class Register extends Component {

@@ -1,10 +1,12 @@
 export const SET_AUTH_ERROR = "SET_AUTH_ERROR";
-export const SET_IS_LOADING = "SET_IS_LOADING";
+export const SET_AUTH_SUCCESS_MESSAGE = "SET_AUTH_SUCCESS_MESSAGE";
+export const SET_AUTH_IS_LOADING = "SET_AUTH_IS_LOADING";
 export const SET_REGISTERED_EMAIL = "SET_REGISTERED_EMAIL";
 
 const initialState = {
   registeredEmail: null,
   error: null,
+  successMessage: null,
   isLoading: false,
 };
 
@@ -15,7 +17,7 @@ const authReducer = (state = initialState, action) => {
         ...state,
         error: action.payload,
       };
-    case SET_IS_LOADING:
+    case SET_AUTH_IS_LOADING:
       return {
         ...state,
         isLoading: action.payload,
@@ -24,6 +26,11 @@ const authReducer = (state = initialState, action) => {
       return {
         ...state,
         registeredEmail: action.payload,
+      };
+    case SET_AUTH_SUCCESS_MESSAGE:
+      return {
+        ...state,
+        successMessage: action.payload,
       };
     default:
       return state;

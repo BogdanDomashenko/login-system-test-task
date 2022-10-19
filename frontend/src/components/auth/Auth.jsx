@@ -1,25 +1,45 @@
 import { Component } from "react";
 import { connect } from "react-redux";
-import { setAuthError } from "../../store/actions/auth.action";
+import {
+  setAuthError,
+  setAuthSuccessMessage,
+} from "../../store/actions/auth.action";
 import { Alert, Snackbar } from "@mui/material";
 import { Outlet } from "react-router-dom";
-import { Loader } from "../ui";
 
 class Auth extends Component {
-  handleErrorMessageClose() {
-    this.props.setAuthError(null);
+  constructor(props) {
+    super(props);
   }
 
+  handleErrorMessageClose = () => {
+    this.props.setAuthError(null);
+  };
+
+  handleSuccessMessageClose = () => {
+    this.props.setAuthSuccessMessage(null);
+  };
+
   render() {
-    const { isLoading, authError } = this.props;
+    const { successMessage, authError } = this.props;
 
     return (
       <div>
         <Outlet />
         <Snackbar
+          open={!!successMessage}
+          onClose={this.handleSuccessMessageClose}
+          autoHideDuration={4000}
+          anchorOrigin={{ vertical: "bottom", horizontal: "right" }}
+        >
+          <Alert severity="success" sx={{ width: "100%" }}>
+            {successMessage}
+          </Alert>
+        </Snackbar>
+        <Snackbar
           open={!!authError}
           onClose={this.handleErrorMessageClose}
-          autoHideDuration={6000}
+          autoHideDuration={4000}
           anchorOrigin={{ vertical: "bottom", horizontal: "right" }}
         >
           <Alert severity="error" sx={{ width: "100%" }}>
@@ -32,7 +52,11 @@ class Auth extends Component {
 }
 
 const mapStateToProps = (state) => ({
+  successMessage: state.auth.successMessage,
   authError: state.auth.error,
 });
 
-export default connect(mapStateToProps, { setAuthError })(Auth);
+export default connect(mapStateToProps, {
+  setAuthSuccessMessage,
+  setAuthError,
+})(Auth);
