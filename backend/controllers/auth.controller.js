@@ -4,7 +4,7 @@ const { validateEmail } = require("../utils/validateEmail");
 const { validatePassword } = require("../utils/validatePassword");
 const { User } = require("../models/User");
 
-const signup = async (req, res, next) => {
+const register = async (req, res, next) => {
   try {
     const { email, password } = req.body;
 
@@ -16,7 +16,7 @@ const signup = async (req, res, next) => {
 
     if (!validatePassword(password)) {
       validationErrors.push(
-        "password' should contains at least 8 characters, 1 number, 1 upper, 1 lowercase and 1 special symbol"
+        "password' should contain at least 8 characters, 1 number, 1 upper, 1 lowercase and 1 special symbol"
       );
     }
 
@@ -62,4 +62,4 @@ const login = async (req, res, next) => {
   }
 };
 
-module.exports = { signup, login };
+module.exports = { register, login };
