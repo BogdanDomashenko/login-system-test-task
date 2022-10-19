@@ -11,11 +11,11 @@ const User = sequelize.define("User", {
     },
     unique: true,
   },
-  password: {
+  hash: {
     type: DataTypes.STRING,
     allowNull: false,
     validate: {
-      notNull: { msg: "password is required" },
+      notNull: { msg: "hash is required" },
     },
   },
 });

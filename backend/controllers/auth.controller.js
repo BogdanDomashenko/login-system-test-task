@@ -1,8 +1,10 @@
+const argon2 = require("argon2");
 const { ApiError } = require("../error/ApiError");
 const { validateEmail } = require("../utils/validateEmail");
 const { validatePassword } = require("../utils/validatePassword");
+const { User } = require("../models/User");
 
-const login = async (req, res, next) => {
+const signup = async (req, res, next) => {
   try {
     const { email, password } = req.body;
 
@@ -22,10 +24,42 @@ const login = async (req, res, next) => {
       throw ApiError.badRequest(validationErrors);
     }
 
-    res.sendStatus(200);
+    let user = await User.findOne({ where: { email } });
+
+    if (user) {
+      throw ApiError.badRequest("This email already taken");
+    }
+
+    const hash = await argon2.hash(password);
+
+    user = await User.create({ email, hash });
+
+    return res.json({ email: user.email });
   } catch (error) {
     next(error);
   }
 };
 
-module.exports = { login };
+const login = async (req, res, next) => {
+  try {
+    const { email, password } = req.body;
+
+    const user = await User.findOne({ where: { email } });
+
+    if (!user) {
+      throw ApiError.badRequest("Credentials incorrect");
+    }
+
+    const passwordMatches = await argon2.verify(user.hash, password);
+
+    if (!passwordMatches) {
+      throw ApiError.badRequest("Credentials incorrect");
+    }
+
+    return res.status(200).json({ email: user.email });
+  } catch (error) {
+    next(error);
+  }
+};
+
+module.exports = { signup, login };

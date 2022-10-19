@@ -1,10 +1,10 @@
 const { ApiError } = require("../error/ApiError");
 
-const errorHandler = (err, req, res, next) => {
-  if (err instanceof ApiError) {
-    return res.status(err.status).json({ error: err.message });
+const errorHandler = (error, req, res, next) => {
+  if (error instanceof ApiError) {
+    return res.status(error.status).json({ error: error.message });
   }
-  console.log(err);
+  console.log(error);
   return res.status(500).json({ message: "Unexpected error" });
 };
 
