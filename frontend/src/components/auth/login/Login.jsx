@@ -1,4 +1,5 @@
 import { Component } from "react";
+import { connect } from "react-redux";
 import { withFormik } from "formik";
 import {
   Box,
@@ -57,9 +58,20 @@ class Login extends Component {
   }
 }
 
-export default withFormik({
-  mapPropsToValues: () => ({ email: "", password: "" }),
+const LoginFormik = withFormik({
+  mapPropsToValues: (props) => ({
+    email: props.registeredEmail || "",
+    password: "",
+  }),
   handleSubmit: (values) => {
     console.log(values);
   },
 })(Login);
+
+const mapStateToProps = (state) => ({
+  isLoading: state.auth.isLoading,
+  authError: state.auth.error,
+  registeredEmail: state.auth.registeredEmail,
+});
+
+export default connect(mapStateToProps, {})(LoginFormik);

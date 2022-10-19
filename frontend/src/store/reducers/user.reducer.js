@@ -1,6 +1,5 @@
 export const SET_USER_DATA = "SET_USER_DATA";
 export const RESET_USER = "RESET_USER";
-export const SET_IS_LOADING = "SET_IS_LOADING";
 
 const initialState = {
   data: {},
@@ -16,12 +15,6 @@ const userReducer = (state = initialState, action) => {
       };
     case RESET_USER: {
       return initialState;
-    }
-    case SET_IS_LOADING: {
-      return {
-        ...state,
-        isLoading: action.payload,
-      };
     }
     default:
       return state;
