@@ -11,7 +11,7 @@ import {
 } from "@mui/material";
 import { Link } from "react-router-dom";
 
-class Signup extends Component {
+class Register extends Component {
   render() {
     const { values, errors, touched, handleSubmit, handleChange, handleBlur } =
       this.props;
@@ -19,7 +19,7 @@ class Signup extends Component {
     return (
       <Container maxWidth="xs">
         <Box sx={{ margin: "20px 0" }}>
-          <Typography variant="h5">Signup</Typography>
+          <Typography variant="h5">Register</Typography>
         </Box>
         <form onSubmit={handleSubmit}>
           <Box sx={{ display: "flex", flexDirection: "column", gap: "10px" }}>
@@ -49,7 +49,7 @@ class Signup extends Component {
               <Link to="/auth/login">
                 <Button>Login</Button>
               </Link>
-              <Button type="submit">Signup</Button>
+              <Button type="submit">Register</Button>
             </Box>
           </Box>
         </form>
@@ -68,7 +68,8 @@ export default withFormik({
     }
 
     if (!validatePassword(values.password)) {
-      errors.password = "pass err";
+      errors.password =
+        "Should contain at least 8 characters, 1 number, 1 upper, 1 lowercase and 1 special symbol";
     }
 
     return errors;
@@ -76,4 +77,4 @@ export default withFormik({
   handleSubmit: (values) => {
     console.log(values);
   },
-})(Signup);
+})(Register);

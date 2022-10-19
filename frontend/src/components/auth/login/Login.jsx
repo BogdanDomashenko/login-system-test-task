@@ -1,6 +1,5 @@
 import { Component } from "react";
 import { withFormik } from "formik";
-import { validateEmail, validatePassword } from "../../../common/utils";
 import {
   Box,
   Button,
@@ -25,7 +24,7 @@ class Login extends Component {
           <Box sx={{ display: "flex", flexDirection: "column", gap: "10px" }}>
             <TextField
               label="Email"
-              type="text"
+              type="email"
               name="email"
               onChange={handleChange}
               onBlur={handleBlur}
@@ -46,8 +45,8 @@ class Login extends Component {
               }
             />
             <Box sx={{ marginLeft: "auto" }}>
-              <Link to="/auth/signup">
-                <Button>Signup</Button>
+              <Link to="/auth/register">
+                <Button>Register</Button>
               </Link>
               <Button type="submit">Login</Button>
             </Box>

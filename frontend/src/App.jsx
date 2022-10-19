@@ -1,7 +1,6 @@
 import { Component } from "react";
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
-import { Layout, Profile } from "./components";
-import { Auth, Login, Signup } from "./components/auth";
+import { Layout, Profile, Auth, Login, Register } from "./components";
 
 class App extends Component {
   render() {
@@ -12,8 +11,8 @@ class App extends Component {
             <Route index element={<Profile />} />
             <Route path="auth" element={<Auth />}>
               <Route path="" element={<Navigate to="/auth/login" replace />} />
-              <Route path="Login" element={<Login />} />
-              <Route path="signup" element={<Signup />} />
+              <Route path="login" element={<Login />} />
+              <Route path="register" element={<Register />} />
             </Route>
           </Routes>
         </Layout>
